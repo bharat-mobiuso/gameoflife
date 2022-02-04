@@ -5,9 +5,9 @@ class GameOfLife {
 
     constructor() {
 
-        this.cell_size = 5;
+        this.cell_size = 20;
         this.dead_color = `#181818`;
-        this.alive_color = `#045D5D`;
+        this.alive_color = `#fff`;
         this.cells_in_column = Math.floor(canvas.width / this.cell_size);
         this.cells_in_rows = Math.floor(canvas.height / this.cell_size);
         this.active_array = [];
