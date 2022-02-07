@@ -4,7 +4,8 @@ class GameOfLife {
     CELL_SIZE = 20;
     DEAD_COLOR = `#181818`;
     ALIVE_COLOR = `#fff`;
-// create 2 2d arrays with zeros (active/inactive)
+
+
 
     constructor() {
         this.cells_in_column = Math.floor(canvas.width / this.CELL_SIZE);
@@ -23,6 +24,7 @@ class GameOfLife {
         }, 500)
     };
 
+    // create 2 2d arrays with zeros (active/inactive)
     arrayInitialization(){
 
         for (let i = 0; i < this.cells_in_rows; i++) {
