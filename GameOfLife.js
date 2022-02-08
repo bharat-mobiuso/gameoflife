@@ -1,11 +1,8 @@
-
 class GameOfLife {
 
     CELL_SIZE = 20;
     DEAD_COLOR = `#181818`;
     ALIVE_COLOR = `#fff`;
-
-
 
     constructor() {
         this.cells_in_column = Math.floor(canvas.width / this.CELL_SIZE);
@@ -16,16 +13,16 @@ class GameOfLife {
 
     //methods
     gameSetUp(){
-        this.arrayInitialization();
-        this.arrayRandomize();
-        this.fillArray();
+        this.initArray();
+        this.randomPatternForCells();
+        this.fillColorOfCells();
         window.setInterval(() => {
             this.runGame();
         }, 500)
     };
 
     // create 2 2d arrays with zeros (active/inactive)
-    arrayInitialization(){
+    initArray(){
 
         for (let i = 0; i < this.cells_in_rows; i++) {
             this.active_array[i] = [];
@@ -38,7 +35,7 @@ class GameOfLife {
     }
     
     //fill active array randomly with ones and zeros 
-    arrayRandomize(){
+    randomPatternForCells(){
         for (let i = 0; i < this.cells_in_rows; i++) {
             for (let j = 0; j < this.cells_in_column; j++) {
                 this.active_array[i][j] = (Math.random() > 0.5) ? 1 : 0;
@@ -47,7 +44,7 @@ class GameOfLife {
     }
 
     //set color for cells
-    fillArray () {
+    fillColorOfCells () {
 
         for (let i = 0; i < this.cells_in_rows; i++) {
             for (let j = 0; j < this.cells_in_column; j++) {
@@ -121,15 +118,11 @@ class GameOfLife {
 
     runGame() {
         this.updateLifeCycle();
-        this.fillArray();
+        this.fillColorOfCells();
     }
 
     // clear canvas
-    stopGame(){
-        // active_array.map((row) => {
-        //     return row.fill(0);
-        // })
-
+    stopGame() {
         for (let i = 0; i < this.cells_in_rows; i++) {
             for (let j = 0; j < this.cells_in_column; j++) {
                 this.active_array[i][j] = 0;
