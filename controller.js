@@ -13,7 +13,7 @@ class controller {
 
     //methods
     gameSetUp(){
-        this.initArray();
+        this.CellsArray();
         this.randomPatternForCells();
         this.setColorOfCells();
         window.setInterval(() => {
@@ -22,7 +22,7 @@ class controller {
     };
 
     // create 2 2d arrays with zeros (active/inactive)
-    initArray(){
+    CellsArray(){
 
         for (let i = 0; i < this.cells_in_rows; i++) {
             this.active_array[i] = [];
