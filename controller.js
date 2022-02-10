@@ -1,8 +1,8 @@
-class GameOfLife {
+class controller {
 
     CELL_SIZE = 20;
-    DEAD_COLOR = `#181818`;
-    ALIVE_COLOR = `#fff`;
+    DEAD_CELL_COLOR = `black`;
+    ALIVE_CELL_COLOR = `white`;
 
     constructor() {
         this.cells_in_column = Math.floor(canvas.width / this.CELL_SIZE);
@@ -13,16 +13,16 @@ class GameOfLife {
 
     //methods
     gameSetUp(){
-        this.initArray();
+        this.CellsArray();
         this.randomPatternForCells();
-        this.fillColorOfCells();
+        this.setColorOfCells();
         window.setInterval(() => {
             this.runGame();
         }, 500)
     };
 
     // create 2 2d arrays with zeros (active/inactive)
-    initArray(){
+    CellsArray(){
 
         for (let i = 0; i < this.cells_in_rows; i++) {
             this.active_array[i] = [];
@@ -31,7 +31,6 @@ class GameOfLife {
             }
         }
         this.inactive_array = this.active_array;
-
     }
     
     //fill active array randomly with ones and zeros 
@@ -44,20 +43,19 @@ class GameOfLife {
     }
 
     //set color for cells
-    fillColorOfCells () {
+    setColorOfCells () {
 
         for (let i = 0; i < this.cells_in_rows; i++) {
             for (let j = 0; j < this.cells_in_column; j++) {
                 let color;
                 if (this.active_array[i][j] == 1)
-                    color = this.ALIVE_COLOR;
+                    color = this.ALIVE_CELL_COLOR;
                 else
-                    color = this.DEAD_COLOR;
+                    color = this.DEAD_CELL_COLOR;
                 ctx.fillStyle = color;
                 ctx.fillRect(j * this.CELL_SIZE, i * this.CELL_SIZE, this.CELL_SIZE, this.CELL_SIZE);
             }
         }
-
     }
 
     //count neigbours
@@ -78,22 +76,26 @@ class GameOfLife {
     //update generation
 
     updateCellValue (row, col) {
-
         const total = this.countNeighbours(row, col);
+        
         // cell with more than 4 or less then 3 neighbours dies. 1 => 0; 0 => 0
-        if (total > 4 || total < 3) {
-            return 0;
-        }
+        if (total > 4 || total < 3) return 0;
+        
         // dead cell with 3 neighbours becomes alive. 0 => 1
-        else if (this.active_array[row][col] === 0 && total === 3) {
-            return 1;
-        }
+        else if (this.active_array[row][col] === 0 && total === 3) return 1;
+        
         // or returning its status back. 0 => 0; 1 => 1
-        else {
+        else  return this.active_array[row][col];
+    }
+    
+    setCellValueHelper (row, col) {
+        try {
             return this.active_array[row][col];
         }
-
-    }
+        catch {
+            return 0;
+        }
+    } 
 
     updateLifeCycle() {
 
@@ -104,21 +106,11 @@ class GameOfLife {
             }
         }
         this.active_array = this.inactive_array
-
     }
-
-    setCellValueHelper (row, col) {
-        try {
-            return this.active_array[row][col];
-        }
-        catch {
-            return 0;
-        }
-    } 
 
     runGame() {
         this.updateLifeCycle();
-        this.fillColorOfCells();
+        this.setColorOfCells();
     }
 
     // clear canvas
@@ -129,5 +121,4 @@ class GameOfLife {
             }
         }
     }
-
 }
